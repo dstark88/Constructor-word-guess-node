@@ -26,9 +26,8 @@ console.log("1: " + computerPick);
 console.log("2: " + currentWord);
 
 
-(async function () { // Use an async function to allow the use of AWAIT
-    while (remainingGuesses--) { // You need a loop to repeat guess/response cycle
-        // Use AWAIT -- simpler to use than THEN
+(async function () { 
+    while (remainingGuesses--) { 
         const inquirerResponse = await inquirer.prompt([{
             type: "input",
             name: "game",
@@ -36,15 +35,13 @@ console.log("2: " + currentWord);
         }]);
         const liveWord = game.x;
         game.eachGuess(inquirerResponse.game);
-        // Don't display splitWord here, but stringRep:
         const output = game.stringRep();
         console.log(output);
-        // Detect that the word has been found, and exit if so
         if (!output.includes("_")) {
             console.log("You found it!");
             return;
         }
     }
-    // The maximum number of guesses was not enough to find the word
+   
     console.log('What a pity. You ran out of guesses.');
 })();

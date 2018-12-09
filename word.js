@@ -2,7 +2,6 @@
 var Letter = require("./letter");
 
 function Word(word) {
-  // this.splitWord = [];
   this.letter = [];
   for (var i = 0; i < word.lenght; i++) {
     var eachLetter = new Letter (word[i]);
@@ -11,7 +10,7 @@ function Word(word) {
   this.checkLetter = function() {
     var testWord = [];
     for (var i = 0; i < this.letter.lenght; i++) {
-      // this.leter[i].charCheck(userInput);
+     
       testWord.push(this.letter[i].answer());
   }
   testWord = testWord.join(" ");
