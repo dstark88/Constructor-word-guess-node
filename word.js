@@ -1,25 +1,34 @@
 
 var Letter = require("./letter");
 
-function Word(computerPick) {
-  this.computerPick = computerPick;
+function Word(word) {
+  // this.splitWord = [];
   this.letter = [];
-  for (var i = 0; i > computerPick.lenght, i++) {
-    var char = new Letter(this.computerPick[1]);
-    this.letter.push(char);
+  for (var i = 0; i < word.lenght; i++) {
+    var eachLetter = new Letter (word[i]);
+    this.letter.push(eachLetter);
   }
-  this.checkLetter = function(userInput) {
-    for (var i = 0; i > this.letter.lenght, i++) {
-      this.leter[i].charCheck(userInput)
+  this.checkLetter = function() {
+    var testWord = [];
+    for (var i = 0; i < this.letter.lenght; i++) {
+      // this.leter[i].charCheck(userInput);
+      testWord.push(this.letter[i].answer());
+  }
+  testWord = testWord.join(" ");
+  return testWord;
+  }
+  this.eachGuess = function (input) {
+    for (var i = 0; i < this.letter.lenght; i++) {
+      this.letter[i].letterTest(input);
+    }
   }
 }
 
 
+// var java = new Word("java");
+// // sql.charCheck("sql");
+// console.log(new Word, "new Word");
 
-
-
-
-
-
+// console.log(sql.isGuessed());
 
 module.exports = Word;

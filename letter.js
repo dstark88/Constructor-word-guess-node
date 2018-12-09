@@ -4,25 +4,24 @@ function Letter(x) {
     this.x = String(x).toLowerCase();
     this.guess = false;
     this.isGuessed = function() {
-        if (this.guess) {
-            return this.x;
-        } else {
+        if (!this.guess) {
             return "_";
+           
+        } else {
+            return this.x;
         }
     }
     this.charCheck = function(userInput) {
-        if (userInput === x) {
+        if (userInput === this.x) {
             this.guess = true;
-        } else {
-            this.guess = false;
-        }
+        } 
     }
 }
 
-var a = new Letter("a");
-a.charCheck("w");
+// var a = new Letter("a");
+// a.charCheck("w");
 
-console.log(a.isGuessed());
+// console.log(a.isGuessed());
 
 module.exports = Letter;
 

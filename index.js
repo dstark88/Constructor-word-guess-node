@@ -1,59 +1,50 @@
 var inquirer = require("inquirer");
-// var require = require("./index");
-// const words = require("./word.js");
-// var operator = process.argv[2].toLowerCase();
+var Letter = require("./letter");
+var Word = require("./word");
+
+var remainingGuesses = 9;
+var game;
+var currentWord;
+var liveWord = [];
+completeWord = null;
+var testedWord;
 
 var computerOptions = ["beta", "html", "cql", "python", "racket", "rust", "kotlin", "simula", "sather", "labview", "ruby", "perl", "swift", "falcon", "erlang"];
-//pick a random word
-var computerPick = computerOptions[Math.floor(Math.random() * computerOptions.length)];
-console.log(computerPick, "computerPick");
-var wins = 0;
-var losses = 0;
-var guesses = 9;
 
-function startGame() {
-
-    makeUnderscore();
-    // docGuesses.innerHTML = guesses.toString();
-    console.log(makeUnderscore, "makeUnderscore")
-
+function pick() {
+    computerPick = computerOptions[Math.floor((Math.random() * computerOptions.length) + 1)];
+    var game2 = new Word (computerPick);
+    game = game2;
+    currentWord = game.checkLetter();
+    currentWord = JSON.stringify(currentWord);
+    console.log("Word: " + currentWord);
 }
 
+pick();
+// Delete this after
+console.log("1: " + computerPick);
+console.log("2: " + currentWord);
 
-startGame();
-//get users guess 
-onkeyup = function (event) {
-    var keyPressed = event.key.toLowerCase();
-    console.log(keyPressed);
-    //if user guess is right
-    if (computerPick.indexOf(keyPressed) > -1) {
-        //add to right letters
-        rightLetter.push(keyPressed);
-        console.log(rightLetter);
-        //when right replace an underscore in the array
-        underscore[computerPick.indexOf(keyPressed)] = keyPressed;
-        // docUnderscore[0].innerHTML = underscore.join("");
-        console.log(underscore.join(""), "underscore.join")
-        // if all underscores are replaced
-        if (underscore.join("") == computerPick) {
-            alert("You Won!")
-            wins++;
-            docWins[0].innerHTML = "Wins Count: " + wins;
-            resetUnderscore();
 
-            // computer picks a word from the array of computer options     
-        }
-        // when wrong letter is pushed and they run out of guesses and lose    
-    } else {
-        wrongLetter.push(keyPressed);
-        docWrongLetter[0].innerHTML = wrongLetter.join("");
-        guesses--;
-        docGuesses[0].innerHTML = "Remaining Guesses: " + guesses;
-        if (guesses == 0) {
-            alert("You lost! Try again!");
-            losses++;
-            docLosses[0].innerHTML = "Loss Count: " + losses;
-            resetUnderscore();
+(async function () { // Use an async function to allow the use of AWAIT
+    while (remainingGuesses--) { // You need a loop to repeat guess/response cycle
+        // Use AWAIT -- simpler to use than THEN
+        const inquirerResponse = await inquirer.prompt([{
+            type: "input",
+            name: "game",
+            message: "Guess a letter!"
+        }]);
+        const liveWord = game.x;
+        game.eachGuess(inquirerResponse.game);
+        // Don't display splitWord here, but stringRep:
+        const output = game.stringRep();
+        console.log(output);
+        // Detect that the word has been found, and exit if so
+        if (!output.includes("_")) {
+            console.log("You found it!");
+            return;
         }
     }
-}
+    // The maximum number of guesses was not enough to find the word
+    console.log('What a pity. You ran out of guesses.');
+})();

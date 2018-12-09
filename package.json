@@ -1,0 +1,24 @@
+{
+  "name": "Constructor-word-guess-node.js",
+  "version": "1.0.0",
+  "description": "Assignment #11",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dstark88/Constructor-word-guess-node.js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dstark88/Constructor-word-guess-node.js/issues"
+  },
+  "homepage": "https://github.com/dstark88/Constructor-word-guess-node.js#readme",
+  "dependencies": {
+    "inquirer": "^6.2.1",
+    "prompt": "^1.0.0"
+  }
+}
